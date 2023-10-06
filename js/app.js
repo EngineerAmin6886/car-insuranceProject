@@ -4,10 +4,35 @@
 // discription:mohasebeh online insuranse car.
 
 // variables
+const form = document.querySelector('#request-quote')
 
 // Events
+document.addEventListener('DOMContentLoaded',afterLoad)
+form.addEventListener('submit',submitForm)
 
 // functions
+
+// load safeh
+function afterLoad(){
+  displayYears();
+}
+
+// submit form to the error ya AllRight
+function submitForm(e){
+  e.preventDefault();
+
+  // read value form the form
+  const make = document.querySelector('#make').value
+  const year = document.querySelector('#year').value
+  const level = document.querySelector('input[name="level"]:checked')
+
+  // check the value of fileds are corect
+  if(make === '' || year === '' || level === ''){
+    console.log('error :(')
+  }else{
+    console.log('okiiii :)')
+  }
+}
 
 // show Yares
 function displayYears() {
@@ -59,6 +84,15 @@ function displayYears() {
 
   // accsess to the select tag
   const selectYear = document.querySelector("#year");
+
+  // create option tag value
+  const optionTag = document.createElement("option");
+  optionTag.innerText = `-انتخاب-`;
+  optionTag.value = '';
+
+  // append option to the select year
+  selectYear.appendChild(optionTag);
+
 
   // create for loop for make option tag
   for (let i = maxYear; i >= minYear; i--) {
