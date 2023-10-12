@@ -4,34 +4,97 @@
 // discription:mohasebeh online insuranse car.
 
 // variables
-const form = document.querySelector('#request-quote')
+const form = document.querySelector("#request-quote");
 
 // Events
-document.addEventListener('DOMContentLoaded',afterLoad)
-form.addEventListener('submit',submitForm)
+document.addEventListener("DOMContentLoaded", afterLoad);
+form.addEventListener("submit", submitForm);
 
 // functions
 
 // load safeh
-function afterLoad(){
+function afterLoad() {
   displayYears();
 }
 
 // submit form to the error ya AllRight
-function submitForm(e){
+function submitForm(e) {
   e.preventDefault();
 
   // read value form the form
-  const make = document.querySelector('#make').value
-  const year = document.querySelector('#year').value
-  const level = document.querySelector('input[name="level"]:checked')
+  const make = document.querySelector("#make").value;
+  const year = document.querySelector("#year").value;
+  const level = document.querySelector('input[name="level"]:checked').value;
 
   // check the value of fileds are corect
-  if(make === '' || year === '' || level === ''){
-    console.log('error :(')
-  }else{
-    console.log('okiiii :)')
+  if (make === "" || year === "" || level === "") {
+    displayMsg("لطفا مقادیر فرم رو با دقت پر کنید");
+  } else {
+    // STEP1: GET INFO
+    let insuranceCase = {
+      carMake: make,
+      carYear: year,
+      carlevel: level,
+    };
+
+    // STEP2: CALCULATE
+    calculateprice(insuranceCase)
+
+    // STEP3:SHOW RESULT MESSAGE BOX
   }
+}
+
+function calculateprice(info) {
+  let price = 0,
+    base = 200000;
+  const make = info.make;
+
+  // shaktar ghimat gozari cars
+  /*
+      make1:       =>    1.15
+      make2:       =>    1.30
+      make3:       =>    1.80
+  */
+
+  switch (make) {
+    case "1":
+      price = base * 1.15;
+      break;
+    case "2":
+      price = base * 1.3;
+      break;
+    case "3":
+      price = base * 1.8;
+      break;
+  }
+
+  //  + calculate Year
+  // get the year
+  const yaer = info.year,
+
+    diffrence = function(year){
+
+    }
+    // 3% cheaper for each year
+    price = price -((diffrence * 3) /100) * price
+}
+calculateprice(1500000)
+
+// user Interface (UI) faunction
+// display message box
+function displayMsg(msg) {
+  // create message box
+  const messageBox = document.createElement("div");
+  messageBox.classList = "error";
+  messageBox.innerText = msg;
+
+  // show message
+  form.insertBefore(messageBox, document.querySelector(".form-group"));
+
+  // remove message box
+  setTimeout(() => {
+    document.querySelector(".error").remove();
+  }, 5000);
 }
 
 // show Yares
@@ -88,11 +151,10 @@ function displayYears() {
   // create option tag value
   const optionTag = document.createElement("option");
   optionTag.innerText = `-انتخاب-`;
-  optionTag.value = '';
+  optionTag.value = "";
 
   // append option to the select year
   selectYear.appendChild(optionTag);
-
 
   // create for loop for make option tag
   for (let i = maxYear; i >= minYear; i--) {
