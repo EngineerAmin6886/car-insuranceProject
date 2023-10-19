@@ -138,42 +138,44 @@ function displayMsg(msg) {
   }, 5000);
 }
 
-// show Yares
-function displayYears() {
-  // convert to number
+// tabdel typeof string b number v tabdel adad farsi v arabi b english.
+// adad farsi v arabi  ba typeof string migereh.
+// v bhemon adad engilesh ba typeof number mideh.
+ function fixNumbers (str) {
   let persianNumbers = [
-      /۰/g,
-      /۱/g,
-      /۲/g,
-      /۳/g,
-      /۴/g,
-      /۵/g,
-      /۶/g,
-      /۷/g,
-      /۸/g,
-      /۹/g,
-    ],
-    arabicNumbers = [
-      /٠/g,
-      /١/g,
-      /٢/g,
-      /٣/g,
-      /٤/g,
-      /٥/g,
-      /٦/g,
-      /٧/g,
-      /٨/g,
-      /٩/g,
-    ],
-    fixNumbers = function (str) {
-      if (typeof str === "string") {
-        for (let i = 0; i < 10; i++) {
-          str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
-        }
-      }
-      return parseInt(str);
-    };
+    /۰/g,
+    /۱/g,
+    /۲/g,
+    /۳/g,
+    /۴/g,
+    /۵/g,
+    /۶/g,
+    /۷/g,
+    /۸/g,
+    /۹/g,
+  ],
+  arabicNumbers = [
+    /٠/g,
+    /١/g,
+    /٢/g,
+    /٣/g,
+    /٤/g,
+    /٥/g,
+    /٦/g,
+    /٧/g,
+    /٨/g,
+    /٩/g,
+  ]
+  if (typeof str === "string") {
+    for (let i = 0; i < 10; i++) {
+      str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+    }
+  }
+  return parseInt(str);
+};
 
+
+function displayFaris (){
   // get curent Years
   let curentYear = new Date().toLocaleDateString("fa-IR");
 
@@ -185,6 +187,16 @@ function displayYears() {
 
   //   get minYear
   let minYear = maxYear - 20;
+
+  
+}
+
+// show Yares
+function displayYears() {
+
+  fixNumbers();
+
+  displayFaris();
 
   // accsess to the select tag
   const selectYear = document.querySelector("#year");
